@@ -54,6 +54,24 @@ docker run -d --name galaxy \
 
 ## Modifying Galaxy
 
+
+#### Required files
+
+First clone this repository
+```SHELL
+git clone https://github.com/naturalis/docker-galaxy
+```
+Then goto in the directory in the puppet directory
+```SHELL
+cd docker-galaxy/puppet
+```
+Then clone the puppet repository's
+```SHELL
+git clone https://github.com/naturalis/puppet-bioinformatics bioinformatics
+git clone https://github.com/naturalis/puppet-galaxy galaxy
+```
+
+
 #### Adding Software packages
 
 All software packages are installed with puppet code. The puppet repository is `bioinformatics`. For each package to install we make a `manifest` (a `.pp` file). Take a look a the current `.pp` files to check out how use puppet.
