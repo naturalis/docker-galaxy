@@ -3,8 +3,14 @@
 ## Global overview
 
 Galaxy for Naturalis is packaged as a *Docker* image. This makes it very easy to reproduce and to run anywhere. The configuration of the images is mostly done by Puppet. The image is based on the rocker/verse version of the r-base docker image, this uses debian stable versions instead of testing.
+A docker-compose.yml is add for easy configuration / running. 
 
 ## Running
+
+The easy way, use docker-compose with the included docker-compose.yml. Traefik is included in the compose file to allow for the site being accessable using port 80 on galaxy.naturalis.nl ( adjust hosts file for easy testing )
+
+Docker binary is available from within galaxy container this makes it possible to use docker and connect to the host docker daemon from within the container. 
+For integration options see: https://galaxyproject.org/admin/tools/docker/
 
 ### Requirements
 
@@ -88,7 +94,7 @@ And insert after `include ::bioinformatics::biopython \` a new line with `includ
 
 The you need to build a new docker image. You can do this with the following command
 ```Shell
-docker build -t atzedevries/naturalis_galaxy:<tag name>
+docker build -t naturalis/galaxy:<tag name>
 ```
 Where `<tag name>` can be a tag to link to this specific docker image, for example `testing` or `1.2.6`
 

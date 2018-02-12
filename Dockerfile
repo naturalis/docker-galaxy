@@ -19,11 +19,11 @@ RUN apt-get update && \
     rm puppet5-release-"$CODENAME".deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y git puppet-agent="$PUPPET_AGENT_VERSION"-1"$CODENAME" && \
-    apt-get install -y unzip zip python-pip
+    apt-get install -y unzip zip python-pip && \
     apt-get remove --purge -y wget && \
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+#    rm -rf /var/lib/apt/lists/*
 
 RUN $PUPPET_BIN module install puppetlabs/stdlib ; \
     $PUPPET_BIN module install puppet/archive ; \
@@ -37,7 +37,7 @@ ADD puppet/bioinformatics $MODULE_DIR/bioinformatics
 ADD puppet/galaxy $MODULE_DIR/galaxy
 
 RUN echo "include ::bioinformatics::cd_hit \
-	  include ::bioinformatics::ncbi_blast \
+          include ::bioinformatics::ncbi_blast \
           include ::bioinformatics::soap \
           include ::bioinformatics::transabyss \
           include ::bioinformatics::phyloseq \
@@ -73,6 +73,11 @@ ENV URL_USEARCH='' \
     UPDATE_TAXA='no'
 
 WORKDIR /opt/galaxy
+
+RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz && \
+    tar xzvf docker-17.04.0-ce.tgz && \
+    mv docker/docker /usr/local/bin && \
+    rm -r docker docker-17.04.0-ce.tgz
 
 ADD bootstrap.sh /bootstrap.sh
 CMD sh /bootstrap.sh
