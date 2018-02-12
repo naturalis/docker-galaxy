@@ -1,24 +1,29 @@
-FROM r-base:3.3.1
+FROM rocker/verse:3.4.3
 MAINTAINER atze.devries@naturalis.nl
 # clone release on 16.10
-ENV GALAXY_ADMIN_USERS=None \
+ENV GALAXY_ADMIN_USERS=aut@naturalis.nl \
+    USER_ACTIVATION_ON=False \
     GMAIL_USERNAME=mail \
     GMAIL_PASSWORD=pass \
     GALAXY_WHEELS_INDEX_URL=https://wheels.galaxyproject.org/simple \
     PATH="/usr/lib/abyss/":$PATH \
-    PUPPET_AGENT_VERSION="1.6.1" \
-    CODENAME="xenial" \
+    PUPPET_AGENT_VERSION="5.1.0" \
+    CODENAME="stretch" \
     PUPPET_BIN="/opt/puppetlabs/bin/puppet" \
     MODULE_DIR="/etc/puppetlabs/code/environments/production/modules"
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y lsb-release wget ca-certificates && \
-    wget https://apt.puppetlabs.com/puppetlabs-release-pc1-"$CODENAME".deb && \
-    dpkg -i puppetlabs-release-pc1-"$CODENAME".deb && \
-    rm puppetlabs-release-pc1-"$CODENAME".deb && \
+    wget https://apt.puppetlabs.com/puppet5-release-"$CODENAME".deb && \
+    dpkg -i puppet5-release-"$CODENAME".deb && \
+    rm puppet5-release-"$CODENAME".deb && \
     apt-get update && \
     apt-get install --no-install-recommends -y git puppet-agent="$PUPPET_AGENT_VERSION"-1"$CODENAME" && \
     apt-get install -y unzip zip python-pip
+    apt-get remove --purge -y wget && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN $PUPPET_BIN module install puppetlabs/stdlib ; \
     $PUPPET_BIN module install puppet/archive ; \
@@ -68,11 +73,6 @@ ENV URL_USEARCH='' \
     UPDATE_TAXA='no'
 
 WORKDIR /opt/galaxy
-
-#RUN apt-get remove --purge -y lsb-release ca-certificates && \
-#    apt-get autoremove -y && \
-#    apt-get clean && \
-#    rm -rf /var/lib/apt/lists/* 
 
 ADD bootstrap.sh /bootstrap.sh
 CMD sh /bootstrap.sh

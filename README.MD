@@ -2,7 +2,7 @@
 
 ## Global overview
 
-Galaxy for Naturalis is packaged as a *Docker* image. This makes it very easy to reproduce and to run anywhere. The configuration of the images is mostly done by Puppet. The image is based on the official r-base docker image.
+Galaxy for Naturalis is packaged as a *Docker* image. This makes it very easy to reproduce and to run anywhere. The configuration of the images is mostly done by Puppet. The image is based on the rocker/verse version of the r-base docker image, this uses debian stable versions instead of testing.
 
 ## Running
 
@@ -46,7 +46,7 @@ docker run -d --name galaxy \
   --link galaxy-database:db \
   -v /disk/docker-vols/galaxy/GenBank/:/home/galaxy/GenBank  \
   -v /disk/docker-vols/galaxy/ExtraRef/:/home/galaxy/ExtraRef \
-  atzedevries/naturalis_galaxy:17_01
+  naturalis/galaxy:0.0.1
 ```
 
 ## Modifying Galaxy
