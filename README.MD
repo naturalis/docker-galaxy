@@ -38,6 +38,7 @@ docker-compose up
 Docker binary is available from within galaxy container this makes it possible to use docker and connect to the host docker daemon from within the container. 
 For integration options see: https://galaxyproject.org/admin/tools/docker/
 
+<!--
 ### Requirements
 
 Before running make sure you have `docker-engine` installed. Check the [official installation manual](https://docs.docker.com/engine/installation/). Galaxy is configured to run against a Postgress database. You can run a postgres container like this:
@@ -148,6 +149,8 @@ RUN puppet-apply-wrapper /tmp/naturalis_galaxy.pp
 ```
 
 The Puppet code repository [can be found here](https://github.com/naturalis/puppet-galaxy).
+
+-->
 
 ### Adding tools
 
