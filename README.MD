@@ -29,6 +29,11 @@ docker-compose up
    (Encountered on Mac OSX): make sure that the path that docker is trying to mount actually exists, and that the 
    folder (or one of its ancestors) is shared through the docker interface: Docker > Preferences > File Sharing, and
    add the folder.
+3. The `traefik` reverse proxy is listening for galaxy.naturalis.nl to redirect traffic. Hence, when running locally
+   you will need to update the `/etc/hosts` file, for example by updating the line: 
+   ```127.0.0.1	localhost```
+   To:
+   ```127.0.0.1	localhost galaxy.naturalis.nl```
 
 Docker binary is available from within galaxy container this makes it possible to use docker and connect to the host docker daemon from within the container. 
 For integration options see: https://galaxyproject.org/admin/tools/docker/
