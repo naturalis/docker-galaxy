@@ -7,7 +7,21 @@ A docker-compose.yml is add for easy configuration / running.
 
 ## Running
 
-The easy way, use docker-compose with the included docker-compose.yml. Traefik is included in the compose file to allow for the site being accessable using port 80 on galaxy.naturalis.nl ( adjust hosts file for easy testing )
+The easy way, use docker-compose with the included docker-compose.yml. Traefik is included in the compose file to allow for the site being accessable using port 80 on galaxy.naturalis.nl (adjust hosts file for easy testing):
+
+```shell
+docker-compose up
+```
+
+If you get the following error:
+```shell
+ERROR: Network web declared as external, but could not be found. Please create the network manually using `docker network create web` and try again.
+```
+
+First do:
+```shell
+docker network create web
+```
 
 Docker binary is available from within galaxy container this makes it possible to use docker and connect to the host docker daemon from within the container. 
 For integration options see: https://galaxyproject.org/admin/tools/docker/
