@@ -63,7 +63,7 @@ First clone this repository:
 ```SHELL
 git clone https://github.com/naturalis/docker-galaxy
 ```
-Then goto in the directory in the puppet directory
+Then go into the puppet directory
 ```SHELL
 cd docker-galaxy/puppet
 ```
