@@ -30,7 +30,7 @@ docker-compose up
    folder (or one of its ancestors) is shared through the docker interface: Docker > Preferences > File Sharing, and
    add the folder.
 3. The `traefik` reverse proxy is listening for galaxy.naturalis.nl to redirect traffic. Hence, when running locally
-   you will need to update the `/etc/hosts` file, for example by updating the line: 
+   you will need to update the `/etc/hosts` file, for example by changing the entry: 
    ```127.0.0.1	localhost```
    To:
    ```127.0.0.1	localhost galaxy.naturalis.nl```
