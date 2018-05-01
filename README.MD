@@ -148,3 +148,13 @@ RUN puppet-apply-wrapper /tmp/naturalis_galaxy.pp
 ```
 
 The Puppet code repository [can be found here](https://github.com/naturalis/puppet-galaxy).
+
+### Adding tools
+
+The general approach for adding tools to Dockerized galaxy is as follows:
+
+1. Dockerize the tool. Any convoluted, Galaxy-specific logic (e.g. collecting output files into archives) should be
+   isolated inside the container.
+2. Write a wrapper.xml that invokes the tool via `docker run`
+3. Contribute this wrapper.xml to the github repo for dockerized galaxy tools
+4. Update the tools.xml inside the github repo for dockerized galaxy tools
