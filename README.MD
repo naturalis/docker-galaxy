@@ -2,7 +2,7 @@
 
 ## Global overview
 
-Galaxy for Naturalis is packaged as a *Docker* image. This makes it very easy to reproduce and to run anywhere. The configuration of the images is mostly done by Puppet. The image is based on the rocker/verse version of the r-base docker image, this uses debian stable versions instead of testing.
+Galaxy for Naturalis is packaged as a *Docker* image. This makes it very easy to reproduce and to run anywhere. The image is based on the rocker/verse version of the r-base docker image, this uses debian stable versions instead of testing.
 A docker-compose.yml is add for easy configuration / running. 
 
 ## Running
