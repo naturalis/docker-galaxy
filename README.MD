@@ -13,15 +13,22 @@ The easy way, use docker-compose with the included docker-compose.yml. Traefik i
 docker-compose up
 ```
 
-If you get the following error:
-```shell
-ERROR: Network web declared as external, but could not be found. Please create the network manually using `docker network create web` and try again.
-```
-
-First do:
-```shell
-docker network create web
-```
+### Troubleshooting
+1. If you get the following error:
+   ```shell
+   ERROR: Network web declared as external, but could not be found. Please create the network manually using `docker network    create web` and try again.
+   ```
+   First do:
+   ```shell
+   docker network create web
+   ```
+2. If you get:
+   ```shell
+   Cannot start service galaxy-database: Mounts denied [...]
+   ```
+   (Encountered on Mac OSX): make sure that the path that docker is trying to mount actually exists, and that the 
+   folder (or one of its ancestors) is shared through the docker interface: Docker > Preferences > File Sharing, and
+   add the folder.
 
 Docker binary is available from within galaxy container this makes it possible to use docker and connect to the host docker daemon from within the container. 
 For integration options see: https://galaxyproject.org/admin/tools/docker/
