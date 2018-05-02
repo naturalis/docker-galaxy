@@ -2,3 +2,5 @@ puppet/*
 .README*
 ..gitignore*
 acme.json
+galaxy-repo
+galaxy-postgres-data/
