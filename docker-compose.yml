@@ -4,16 +4,11 @@ services:
   galaxy:
     image: "naturalis/galaxy:latest"
     volumes:
-    - "/data/galaxy/GenBank/:/home/galaxy/GenBank"
-    - "/data/galaxy/ExtraRef/:/home/galaxy/ExtraRef"
+    - "${LOCAL_GENBANK_PATH:-/data/galaxy/GenBank}:/home/galaxy/GenBank"
+    - "${LOCAL_EXTRAREF_PATH:-/data/galaxy/ExtraRef}:/home/galaxy/ExtraRef"
     - "/var/run/docker.sock:/var/run/docker.sock"
-    environment:
-      URL_USEARCH: "http://drive5.com/cgi-bin/upload3.py?license=<your license key>"
-      URL_UNITE: "https://unite.ut.ee/sh_files/sh_general_release_20.11.2016.zip"
-      URL_SILVA: "https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/SILVA_128_LSURef_tax_silva.fasta.gz"
-      DB_ENV_POSTGRES_PASSWORD: "98dkk398910askks_all"
-      UPDATE_GENBANK: "no"
-      UPDATE_TAXA: "no"
+    env_file:
+      - .env
     links:
       - "galaxy-database:db"
     networks:
@@ -29,11 +24,11 @@ services:
   galaxy-database:
     image: postgres:9.6-alpine
     environment:
-      POSTGRES_PASSWORD: "98dkk398910askks_all"
+      POSTGRES_PASSWORD: ${DB_ENV_POSTGRES_PASSWORD:-dbpassword}
     networks:
       - default
     volumes:
-      - "/data/galaxy-postgres-data:/var/lib/postgresql/data"
+    - "${LOCAL_DB_PATH:-/data/galaxy-postgres-data}:/var/lib/postgresql/data"
 
   traefik:
     image: traefik:1.4.5

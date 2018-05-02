@@ -3,11 +3,12 @@
 ## Global overview
 
 Galaxy for Naturalis is packaged as a *Docker* image. This makes it very easy to reproduce and to run anywhere. The image is based on the rocker/verse version of the r-base docker image, this uses debian stable versions instead of testing.
-A docker-compose.yml is add for easy configuration / running. 
+A docker-compose.yml is add for easy configuration / running.
 
 ## Running
 
-The easy way, use docker-compose with the included docker-compose.yml. Traefik is included in the compose file to allow for the site being accessable using port 80 on galaxy.naturalis.nl (adjust hosts file for easy testing):
+The easy way, use docker-compose with the included docker-compose.yml. Traefik is included in the compose file to allow for the site being accessable using port 80 on galaxy.naturalis.nl (adjust hosts file for easy testing) 
+also make sure to copy prod.env.template to .env and configure variables. :
 
 ```shell
 docker-compose up

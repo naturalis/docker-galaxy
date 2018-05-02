@@ -2,3 +2,4 @@ puppet/*
 .README*
 ..gitignore*
 acme.json
+.env

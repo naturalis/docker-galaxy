@@ -65,5 +65,15 @@ fi
 cd $CURDIR
 
 export GALAXY_DB='postgres://postgres:'$DB_ENV_POSTGRES_PASSWORD'@db:5432/postgres'
-python /opt/env_to_ini.py /opt/galaxy.ini.template /opt/galaxy/config/galaxy.ini
+#python /opt/env_to_ini.py /opt/galaxy.ini.template /opt/galaxy/config/galaxy.ini
+
+/bin/sed -i -E "s/database_connection.*/database_connection\ =\ $GALAXY_DB/" /opt/galaxy/config/galaxy.ini
+/bin/sed -i -E "s/smtp_server.*/smtp_server\ =\ $SMTP_SERVER/" /opt/galaxy/config/galaxy.ini
+/bin/sed -i -E "s/smtp_username.*/smtp_username\ =\ $SMTP_USERNAME/" /opt/galaxy/config/galaxy.ini
+/bin/sed -i -E "s/smtp_password.*/smtp_password\ =\ $SMTP_PASSWORD/" /opt/galaxy/config/galaxy.ini
+/bin/sed -i -E "s/error_email_to.*/error_email_to\ =\ $ERROR_EMAIL_TO/" /opt/galaxy/config/galaxy.ini
+/bin/sed -i -E "s/user_activation_on.*/user_activation_on\ =\ $USER_ACTIVATION_ON/" /opt/galaxy/config/galaxy.ini
+/bin/sed -i -E "s/admin_users.*/admin_users\ =\ $ADMIN_USERS/" /opt/galaxy/config/galaxy.ini
+
+
 sh run.sh --no-create-venv --skip-venv
