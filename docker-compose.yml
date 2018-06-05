@@ -2,28 +2,30 @@ version: '2.2'
 services:
 
   galaxy:
-    image: "naturalis/galaxy:v2-beta-1"
+    image: "naturalis/galaxy:release_18.05-1"
     volumes:
-#    - "${LOCAL_GENBANK_PATH:-/data/galaxy/GenBank}:/home/galaxy/GenBank"
-#    - "${LOCAL_EXTRAREF_PATH:-/data/galaxy/ExtraRef}:/home/galaxy/ExtraRef"
-    - "/var/run/docker.sock:/var/run/docker.sock"
-    - ./galaxy.yml:/galaxy/config/galaxy.yml
+#    - "${LOCAL_GENBANK_PATH:-/data/galaxy/GenBank}:/galaxy/GenBank"
+#    - "${LOCAL_EXTRAREF_PATH:-/data/galaxy/ExtraRef}:/galaxy/ExtraRef"
+    - ${GALAXY_CONFIG_YAML:-./galaxy.yml}:/galaxy/config/galaxy.yml
+    - ${TOOL_CONFIG_XML:-./tool_conf.xml}:/galaxy/config/tool_conf.xml
+    - ${WELCOME_HTML:-./welcome.html}:/galaxy/static/welcome.html
+    - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - default
-      - web
+    - default
+    - web
     labels:
-      - "traefik.backend=naturalis.nl"
-      - "traefik.docker.network=web"
-      - "traefik.enable=true"
-      - "traefik.port=8080"
-      - ${GALAXY_URL_CONFIG:-traefik.frontend.rule=Host:galaxy.naturalis.nl}
+    - "traefik.backend=naturalis.nl"
+    - "traefik.docker.network=web"
+    - "traefik.enable=true"
+    - "traefik.port=8080"
+    - ${GALAXY_URL_CONFIG:-traefik.frontend.rule=Host:galaxy.naturalis.nl}
 
   database:
     image: postgres:9.6-alpine
     environment:
       POSTGRES_PASSWORD: ${DB_ENV_POSTGRES_PASSWORD:-postgres}
     networks:
-      - default
+    - default
     volumes:
     - "${LOCAL_DB_PATH:-./galaxy-postgres-data}:/var/lib/postgresql/data"
 
@@ -31,14 +33,14 @@ services:
     image: traefik:1.4.5
     restart: always
     ports:
-      - 80:80
-      - 443:443
+    - 80:80
+    - 443:443
     networks:
-      - web
+    - web
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${TRAEFIK_TOML_FILE:-./traefik.dev.toml}:/traefik.toml
-      - ${ACME_JSON:-./acme.json}:/acme.json
+    - /var/run/docker.sock:/var/run/docker.sock
+    - ${TRAEFIK_TOML_FILE:-./traefik.dev.toml}:/traefik.toml
+    - ${ACME_JSON:-./acme.json}:/acme.json
     container_name: traefik
 
 # run docker network create web before

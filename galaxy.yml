@@ -156,6 +156,7 @@ galaxy:
   # can be locally developed or installed from Galaxy tool sheds.
   # (config/tool_conf.xml.sample will be used if left unset and
   # config/tool_conf.xml does not exist).
+  tool_config_file: 'config/tool_conf.xml'
   #tool_config_file: 'config/tool_conf.xml,config/shed_tool_conf.xml'
 
   # Enable / disable checking if any tools defined in the above non-shed
@@ -271,7 +272,7 @@ galaxy:
   # available but won't fail to load Galaxy if it is not and 'polling'
   # which will use a less efficient monitoring scheme that may work in
   # wider range of scenarios than the watchdog default.
-  #watch_tools: false
+  watch_tools: true
 
   # Enable Galaxy to fetch Docker containers registered with quay.io
   # generated from tool requirements resolved through conda. These
